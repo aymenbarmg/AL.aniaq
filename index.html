@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>فريق الأنيق </title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #5a2a83;
+    }
+    .logo {
+      width: 120px;
+      border-radius: 10px;
+    }
+    .images {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .images img {
+      width: 200px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .players {
+      margin-top: 30px;
+      text-align: center;
+    }
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      width: 60%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background-color: #ddd;
+    }
+    .contact {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+    .insta-links a {
+      display: block;
+      margin: 5px;
+      color: #833ab4;
+      text-decoration: none;
+    }
+
+    .form-container {
+      margin: 40px auto;
+      padding: 20px;
+      width: 300px;
+      background-color: #fff;
+      border: 2px solid #5a2a83;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .form-container input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .form-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #5a2a83;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .user-info {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>⚽ فريق الأنيق </h1>
+  <img src="88.jpg" alt="شعار الأنيق" class="logo">
+  
+  <p>
+    يقود فريق الأنيق المدرب <strong>حيدر السراي</strong>، وقد تمكن من الوصول إلى <strong>أربع نهائيات</strong> في بطولات كروية محلية، 
+    ولكن الحظ لم يحالفه في أي منها حتى الآن. الفريق يتميز بالروح القتالية، والمهارة الجماعية، ويطمح لتحقيق أول بطولة قريبًا.
+  </p>
+
+  <p>
+    رغم قلة الموارد، فإن الأنيق حصد احترام جماهير اللعبة بفضل الأداء الراقي والانضباط العالي داخل الملعب.
+  </p>
+
+  <p>
+    🎖️ <strong>يكافئ فريق الأنيق لاعب الشهر</strong> لأول مرة، وكانت الجائزة من نصيب النجم <strong>أحمد إحسان</strong> 
+    الذي قدم كل ما لديه داخل المستطيل الأخضر، وقاتل بروح عالية في كل مباراة، ليحصل على هذا التكريم المستحق. 
+    هذا الإنجاز يعكس التزامه، ويحفّز بقية اللاعبين لبذل المزيد من الجهد والعطاء.
+  </p>
+
+  <div class="images">
+    <img src="99.jpg" alt="صورة 1">
+    <img src="77.jpg" alt="صورة 2">
+    <img src="66.jpg" alt="صورة 3">
+    <img src="44.jpg" alt="صورة 4">
+  </div>
+
+  <div class="players">
+    <h2>📋 أسماء اللاعبين وأرقامهم</h2>
+    <table>
+      <tr>
+        <th>الاسم</th>
+        <th>الرقم</th>
+      </tr>
+      <tr><td>احمد احسان</td><td>97</td></tr>
+      <tr><td>كرار</td><td>10</td></tr>
+      <tr><td>يوسف عبد الواحد</td><td>4</td></tr>
+      <tr><td>علي داود</td><td>3</td></tr>
+      <tr><td>امير كرار</td><td>7</td></tr>
+    </table>
+  </div>
+
+  <div class="insta-links">
+    <h3>📱 تابعونا على إنستغرام:</h3>
+    <a href="https://instagram.com/al.aniaq_sport_" target="_blank">🔗 @al.aniaq_sport_</a>
+    <a href="https://instagram.com/hhh.ri.18" target="_blank">🔗 @hhh.ri.18</a>
+  </div>
+
+  <div class="contact">
+    <h3>📞 للتواصل :</h3>
+    <p>رقم التواصل: <strong>+964 771 551 2965</strong></p>
+  </div>
+
+  <!-- ✅ نموذج الإدخال في أسفل الصفحة -->
+  <div class="form-container">
+    <h3>📝 أدخل اسمك ورقم هاتفك</h3>
+    <input type="text" id="username" placeholder="الاسم">
+    <input type="tel" id="phone" placeholder="رقم الهاتف">
+    <button onclick="submitForm()">إرسال</button>
+
+    <div class="user-info" id="userInfo"></div>
+  </div>
+
+  <script>
+    function submitForm() {
+      const name = document.getElementById('username').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const userInfo = document.getElementById('userInfo');
+
+      if (name === '' || phone === '') {
+        userInfo.innerHTML = '<p style="color:red;">يرجى إدخال الاسم ورقم الهاتف.</p>';
+        return;
+      }
+
+      userInfo.innerHTML = `
+        <p><strong>الاسم:</strong> ${name}</p>
+        <p><strong>رقم الهاتف:</strong> ${phone}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
