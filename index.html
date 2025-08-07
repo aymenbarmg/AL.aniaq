@@ -2,13 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>فريق الأنيق </title>
- <head> <!-- ✅ أيقونات التبويبة والتثبيت -->
-<link rel="icon" href="88.jpg" type="image/png">
-<link rel="apple-touch-icon" href="88.jpg">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-</head>
+  <title>فريق الأنيق</title>
+
+  <!-- ✅ أيقونات التبويبة والتثبيت -->
+  <link rel="icon" href="88.jpg" type="image/png">
+  <link rel="apple-touch-icon" href="88.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -169,10 +170,10 @@
   </p>
 
   <div class="images">
-    <img src="33.jpg" alt="صورة 1">
-    <img src="77.jpg" alt="صورة 2">
-    <img src="66.jpg" alt="صورة 3">
-    <img src="44.jpg" alt="صورة 4">
+    <img src="1.jpg" alt="صورة 1">
+    <img src="2.jpg" alt="صورة 2">
+    <img src="3.jpg" alt="صورة 3">
+    <img src="4.jpg" alt="صورة 4">
   </div>
 
   <div class="players">
@@ -227,13 +228,10 @@
     // ✅ تبديل الوضع المظلم
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
-
       const btn = document.getElementById('toggleModeBtn');
-      if (document.body.classList.contains('dark-mode')) {
-        btn.textContent = '☀️ تفعيل الوضع العادي';
-      } else {
-        btn.textContent = '🌙 تفعيل الوضع المظلم';
-      }
+      btn.textContent = document.body.classList.contains('dark-mode')
+        ? '☀️ تفعيل الوضع العادي'
+        : '🌙 تفعيل الوضع المظلم';
     }
   </script>
 </body>
