@@ -10,14 +10,18 @@
       color: #222;
       text-align: center;
       padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
     }
+
     h1 {
       color: #5a2a83;
     }
+
     .logo {
       width: 120px;
       border-radius: 10px;
     }
+
     .images {
       display: flex;
       justify-content: center;
@@ -25,31 +29,38 @@
       margin: 20px 0;
       flex-wrap: wrap;
     }
+
     .images img {
       width: 200px;
       height: auto;
       border-radius: 8px;
     }
+
     .players {
       margin-top: 30px;
       text-align: center;
     }
+
     table {
       margin: auto;
       border-collapse: collapse;
       width: 60%;
     }
+
     th, td {
       border: 1px solid #ccc;
       padding: 8px;
     }
+
     th {
       background-color: #ddd;
     }
+
     .contact {
       margin-top: 30px;
       font-size: 18px;
     }
+
     .insta-links a {
       display: block;
       margin: 5px;
@@ -88,9 +99,50 @@
       font-size: 18px;
       color: #333;
     }
+
+    /* ✅ الوضع المظلم */
+    .dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    .dark-mode .form-container {
+      background-color: #1e1e1e;
+      border-color: #bbb;
+    }
+
+    .dark-mode table,
+    .dark-mode th,
+    .dark-mode td {
+      border-color: #555;
+      background-color: #1c1c1c;
+      color: #f0f0f0;
+    }
+
+    .dark-mode th {
+      background-color: #333;
+    }
+
+    .dark-mode a {
+      color: #9b59b6;
+    }
+
+    #toggleModeBtn {
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #5a2a83;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+
+  <!-- ✅ زر تبديل الوضع -->
+  <button onclick="toggleDarkMode()" id="toggleModeBtn">🌙 تفعيل الوضع المظلم</button>
 
   <h1>⚽ فريق الأنيق </h1>
   <img src="88.jpg" alt="شعار الأنيق" class="logo">
@@ -111,7 +163,7 @@
   </p>
 
   <div class="images">
-    <img src="99.jpg" alt="صورة 1">
+    <img src="33.jpg" alt="صورة 1">
     <img src="77.jpg" alt="صورة 2">
     <img src="66.jpg" alt="صورة 3">
     <img src="44.jpg" alt="صورة 4">
@@ -161,15 +213,22 @@
 
       if (name === '' || phone === '') {
         userInfo.innerHTML = '<p style="color:red;">يرجى إدخال الاسم ورقم الهاتف.</p>';
-        return;
+      } else {
+        userInfo.innerHTML = `<p>شكراً لك يا <strong>${name}</strong>! سنتواصل معك على الرقم: <strong>${phone}</strong>.</p>`;
       }
+    }
 
-      userInfo.innerHTML = `
-        <p><strong>الاسم:</strong> ${name}</p>
-        <p><strong>رقم الهاتف:</strong> ${phone}</p>
-      `;
+    // ✅ تبديل الوضع المظلم
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+
+      const btn = document.getElementById('toggleModeBtn');
+      if (document.body.classList.contains('dark-mode')) {
+        btn.textContent = '☀️ تفعيل الوضع العادي';
+      } else {
+        btn.textContent = '🌙 تفعيل الوضع المظلم';
+      }
     }
   </script>
-
 </body>
 </html>
