@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,7 +9,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "4f39c9cf-b53c-4cd9-85cf-eadc537e6490",
+    });
+  });
+</script>
   <style>
         /* --- التنسيقات العادية --- */
     body {
@@ -532,6 +541,7 @@
       
     </div>
   </div>
+  
 <script>
   const settingsBtn = document.getElementById("settingsBtn");
   const settingsPopup = document.getElementById("settingsPopup");
@@ -653,6 +663,7 @@
       toggleAddGameBtn.textContent = "➕ إضافة مباراة";
     }
   });
+  
 </script>
 
 
