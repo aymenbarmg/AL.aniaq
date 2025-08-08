@@ -512,40 +512,37 @@
 
   toggleModeBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    if (document.body.classList.contains("dark-mode")) {
-      toggleModeBtn.textContent = "☀️ إلغاء الوضع المظلم";
-    } else {
-      toggleModeBtn.textContent = "🌙 تفعيل الوضع المظلم";
-    }
+    toggleModeBtn.textContent = document.body.classList.contains("dark-mode")
+      ? "☀️ إلغاء الوضع المظلم"
+      : "🌙 تفعيل الوضع المظلم";
   });
 
   iphoneBtn.addEventListener("click", () => {
     androidVideo.style.display = "none";
-    iphoneVideo.style.display =
-      iphoneVideo.style.display === "block" ? "none" : "block";
+    iphoneVideo.style.display = iphoneVideo.style.display === "block" ? "none" : "block";
   });
 
   androidBtn.addEventListener("click", () => {
     iphoneVideo.style.display = "none";
-    androidVideo.style.display =
-      androidVideo.style.display === "block" ? "none" : "block";
+    androidVideo.style.display = androidVideo.style.display === "block" ? "none" : "block";
   });
 
   // 🛡️ كلمة المرور
-  const ADMIN_PASSWORD = "1234"; // ← عدّل كلمة المرور هنا إن أردت
+  const ADMIN_PASSWORD = "1996";
 
   function askPassword() {
     const input = prompt("🔒 الرجاء إدخال كلمة المرور:");
     return input === ADMIN_PASSWORD;
   }
 
-  // 🎮 جدول المباريات - البيانات الابتدائية
-  const games = [
-    { day: "الجمعه", game: "وديه", time: "7 مساءً", price: "2000 دينار" },
-   
-  ];
+  // 🎮 استرجاع المباريات من التخزين المحلي
+  let games = JSON.parse(localStorage.getItem("games")) || [];
 
   const tableBody = document.querySelector(".games-schedule tbody");
+
+  function saveGamesToStorage() {
+    localStorage.setItem("games", JSON.stringify(games));
+  }
 
   function updateTable() {
     tableBody.innerHTML = "";
@@ -572,10 +569,11 @@
 
   function deleteGame(index) {
     games.splice(index, 1);
+    saveGamesToStorage();
     updateTable();
   }
 
-  updateTable();
+  updateTable(); // عرض البيانات عند تحميل الصفحة
 
   const toggleAddGameBtn = document.getElementById("toggleAddGameBtn");
   const addGameBox = document.getElementById("addGameBox");
@@ -606,6 +604,7 @@
 
     if (day && game && time && price) {
       games.push({ day, game, time, price });
+      saveGamesToStorage();
       updateTable();
       addGameForm.reset();
       addGameBox.classList.remove("show");
@@ -613,6 +612,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
