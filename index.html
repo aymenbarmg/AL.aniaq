@@ -9,15 +9,21 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- تحميل مكتبة OneSignal -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
-      appId: "4f39c9cf-b53c-4cd9-85cf-eadc537e6490",
+      appId: "4f39c9cf-b53c-4cd9-85cf-eadc537e6490", // ضع App ID الخاص بك
+      notifyButton: {
+        enable: true, // زر الإشعارات يظهر في الموقع
+      },
     });
   });
 </script>
+
   <style>
         /* --- التنسيقات العادية --- */
     body {
