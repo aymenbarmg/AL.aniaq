@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>فريق الأنيق</title>
-  <link rel="icon" href="88.jpg" type="image/png">
-  <link rel="apple-touch-icon" href="88.jpg">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" href="88.jpg" type="image/png" />
+  <link rel="apple-touch-icon" href="88.jpg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <style>
+    .games-schedule {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .games-schedule table {
+      margin: auto;
+      border-collapse: collapse;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .games-schedule th,
+    .games-schedule td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #fff;
+    }
+
+    .games-schedule th {
+      background-color: #5a2a83;
+      color: white;
+    }
+
+    .games-schedule button {
+      background-color: #5a2a83;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .games-schedule button:hover {
+      background-color: #7b3aae;
+    }
+
+    /* الوضع المظلم */
+    .dark-mode .games-schedule th {
+      background-color: #833ab4;
+    }
+
+    .dark-mode .games-schedule td {
+      background-color: #1c1c1c;
+      color: #f0f0f0;
+    }
+
+    .dark-mode .games-schedule button {
+      background-color: #833ab4;
+    }
+
+    .dark-mode .games-schedule button:hover {
+      background-color: #a569e0;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
@@ -50,7 +109,8 @@
       width: 60%;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid #ccc;
       padding: 8px;
     }
@@ -60,15 +120,29 @@
     }
 
     .contact {
-      margin-top: 30px;
+      margin-top: 40px;
       font-size: 18px;
+      color: #333;
+      text-align: center;
+    }
+
+    .contact a {
+      color: #5a2a83;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    .insta-links {
+      margin-top: 15px;
     }
 
     .insta-links a {
       display: block;
-      margin: 5px;
-      color: #833ab4;
-      text-decoration: none;
+      margin: 8px 0;
     }
 
     .form-container {
@@ -78,7 +152,7 @@
       background-color: #fff;
       border: 2px solid #5a2a83;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .form-container input {
@@ -192,145 +266,353 @@
       border-radius: 8px;
       margin-top: 10px;
     }
+
+    /* صندوق إضافة المباراة */
+    .add-game-box {
+      width: 80%;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      border: 2px solid #5a2a83;
+      border-radius: 10px;
+      background-color: #fff;
+      text-align: right;
+      display: none; /* مخفي افتراضيًا */
+    }
+
+    .add-game-box.show {
+      display: block; /* يظهر عند الإضافة */
+    }
+
+    .add-game-box h3 {
+      color: #5a2a83;
+      margin-bottom: 15px;
+    }
+
+    .add-game-box input {
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .add-game-box button {
+      background-color: #5a2a83;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .add-game-box button:hover {
+      background-color: #7b3aae;
+    }
+
+    /* زر فتح صندوق إضافة المباراة */
+    #toggleAddGameBtn {
+      background-color: #5a2a83;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 20px auto;
+      display: block;
+      max-width: 200px;
+      transition: background-color 0.3s;
+    }
+
+    #toggleAddGameBtn:hover {
+      background-color: #7b3aae;
+    }
   </style>
 </head>
 <body>
-
   <!-- زر الإعدادات -->
   <button id="settingsBtn">⚙️ الإعدادات</button>
 
   <!-- نافذة الإعدادات -->
   <div id="settingsPopup">
     <h3>الإعدادات</h3>
-   <button id="toggleModeBtn">🌙 تفعيل الوضع المظلم</button>
+    <button id="toggleModeBtn">🌙 تفعيل الوضع المظلم</button>
 
-<p style="margin-top: 15px; font-weight: bold;">📥 كيف تثبيت التطبيق؟</p>
+    <p style="margin-top: 15px; font-weight: bold;">📥 كيف تثبيت التطبيق؟</p>
 
-<button id="iphoneBtn">📱 للايفون</button>
-<button id="androidBtn">🤖 للأندرويد</button>
+    <button id="iphoneBtn">📱 للايفون</button>
+    <button id="androidBtn">🤖 للأندرويد</button>
 
     <button id="closeSettings">إغلاق</button>
 
     <div class="video-section" id="iphoneVideo" style="display: none;">
-  <h4>فيديو الايفون</h4>
-  <iframe width="100%" height="315" 
-    src="https://www.youtube.com/embed/ppffuiFzNM8" 
-    title="YouTube video player" frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-  </iframe>
-</div>
+      <h4>فيديو الايفون</h4>
+      <iframe
+        width="100%"
+        height="315"
+        src="https://www.youtube.com/embed/ppffuiFzNM8"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
 
-   <!-- فيديو الأندرويد -->
-<div class="video-section" id="androidVideo" style="display: none; margin-top: 10px;">
-  <h4>فيديو الأندرويد</h4>
-  <iframe width="100%" height="215"
-    src="https://www.youtube.com/embed/aaTsVYLTfcY"
-    frameborder="0" allowfullscreen></iframe>
-</div>
-
+    <!-- فيديو الأندرويد -->
+    <div class="video-section" id="androidVideo" style="display: none; margin-top: 10px;">
+      <h4>فيديو الأندرويد</h4>
+      <iframe
+        width="100%"
+        height="215"
+        src="https://www.youtube.com/embed/aaTsVYLTfcY"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
   </div>
 
   <h1>⚽ فريق الأنيق </h1>
-  <img src="88.jpg" alt="شعار الأنيق" class="logo">
+  <img src="88.jpg" alt="شعار الأنيق" class="logo" />
 
   <p>
-    يقود فريق الأنيق المدرب <strong>حيدر السراي</strong>، وقد تمكن من الوصول إلى <strong>أربع نهائيات</strong> في بطولات كروية محلية،
-    ولكن الحظ لم يحالفه في أي منها حتى الآن. الفريق يتميز بالروح القتالية، والمهارة الجماعية، ويطمح لتحقيق أول بطولة قريبًا.
+    يقود فريق الأنيق المدرب <strong>حيدر السراي</strong>، وقد تمكن من الوصول إلى <strong>أربع
+      نهائيات</strong> في بطولات كروية محلية، ولكن الحظ لم يحالفه في أي منها حتى الآن. الفريق
+    يتميز بالروح القتالية، والمهارة الجماعية، ويطمح لتحقيق أول بطولة قريبًا.
   </p>
 
   <p>
-    رغم قلة الموارد، فإن الأنيق حصد احترام جماهير اللعبة بفضل الأداء الجميل الراقي والانضباط العالي داخل الملعب.
+    رغم قلة الموارد، فإن الأنيق حصد احترام جماهير اللعبة بفضل الأداء الجميل الراقي والانضباط
+    العالي داخل الملعب.
   </p>
 
   <p>
-    🎖️ <strong>يكافئ فريق الأنيق لاعب الشهر</strong> لأول مرة، وكانت الجائزة من نصيب النجم <strong>أحمد إحسان</strong>
-    الذي قدم كل ما لديه داخل المستطيل الأخضر، وقاتل بروح عالية في كل مباراة، ليحصل على هذا التكريم المستحق.
+    🎖️ <strong>يكافئ فريق الأنيق لاعب الشهر</strong> لأول مرة، وكانت الجائزة من نصيب النجم
+    <strong>أحمد إحسان</strong> الذي قدم كل ما لديه داخل المستطيل الأخضر، وقاتل بروح عالية في
+    كل مباراة، ليحصل على هذا التكريم المستحق.
   </p>
 
   <div class="images">
-    <img src="1.jpg" alt="صورة 1">
-    <img src="2.jpg" alt="صورة 2">
-    <img src="3.jpg" alt="صورة 3">
-    <img src="4.jpg" alt="صورة 4">
+    <img src="1.jpg" alt="صورة 1" />
+    <img src="2.jpg" alt="صورة 2" />
+    <img src="3.jpg" alt="صورة 3" />
+    <img src="4.jpg" alt="صورة 4" />
   </div>
 
+  <!-- جدول المباريات -->
+  <div class="games-schedule">
+    <h2>📅 جدول المباريات</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>اليوم</th>
+          <th>اللعبة</th>
+          <th>التوقيت</th>
+          <th>المبلغ</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- سيتم تعبئة الجدول ديناميكياً -->
+      </tbody>
+    </table>
+
+    <!-- زر إظهار/إخفاء صندوق إضافة المباراة -->
+    <button id="toggleAddGameBtn">➕ إضافة مباراة</button>
+
+    <!-- صندوق إضافة المباراة -->
+    <div class="add-game-box" id="addGameBox">
+      <h3>➕ إضافة مباراة</h3>
+      <form id="addGameForm" autocomplete="off" style="direction: rtl;">
+        <label for="dayInput">اليوم:</label>
+        <input type="text" id="dayInput" placeholder="مثلاً: السبت" required />
+
+        <label for="gameInput">اللعبة:</label>
+        <input type="text" id="gameInput" placeholder="مثلاً: وديه ام بطوله" required />
+
+        <label for="timeInput">التوقيت:</label>
+        <input type="text" id="timeInput" placeholder="مثلاً: 4 مساءً" required />
+
+        <label for="priceInput">المبلغ:</label>
+        <input type="text" id="priceInput" placeholder="مثلاً: 2000 دينار " required />
+
+        <button type="submit">إضافة مباراة</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- أسماء اللاعبين -->
   <div class="players">
     <h2>📋 أسماء اللاعبين وأرقامهم</h2>
     <table>
-      <tr><th>الاسم</th><th>الرقم</th></tr>
-      <tr><td>احمد احسان</td><td>97</td></tr>
-      <tr><td>كرار</td><td>10</td></tr>
-      <tr><td>يوسف عبد الواحد</td><td>4</td></tr>
-      <tr><td>علي داود</td><td>3</td></tr>
-      <tr><td>امير كرار</td><td>7</td></tr>
+      <tr>
+        <th>الاسم</th>
+        <th>الرقم</th>
+      </tr>
+      <tr>
+        <td>احمد احسان</td>
+        <td>97</td>
+      </tr>
+      <tr>
+        <td>كرار</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td>يوسف عبد الواحد</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>علي داود</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>حسن علي نجم</td>
+        <td>99</td>
+      </tr>
+      <tr>
+        <td>عباس</td>
+        <td>1</td>
+      </tr>
     </table>
   </div>
-  <div class="insta-links">
-    <h3>📱 تابعونا على إنستغرام:</h3>
-    <a href="https://instagram.com/al.aniaq_sport_" target="_blank">🔗 @al.aniaq_sport_</a>
-    <a href="https://instagram.com/hhh.ri.18" target="_blank">🔗 @hhh.ri.18</a>
-  </div>
 
+  <!-- قسم التواصل -->
   <div class="contact">
-    <h3>📞 للتواصل :</h3>
-    <p>رقم التواصل: <strong>+964 771 551 2965</strong></p>
+    <h2>📞 تواصل معنا</h2>
+    <p>رقم الهاتف: <a href="tel:+966123456789">+966 123 456 789</a></p>
+    <div class="insta-links">
+      <h3>تابعنا على الإنستغرام</h3>
+      <a href="https://instagram.com/team_alaneq" target="_blank">فريق الأنيق الرسمي</a>
+      <a href="https://instagram.com/coach_hayder" target="_blank">حيدر السراي - المدرب</a>
+      
+    </div>
   </div>
+<script>
+  const settingsBtn = document.getElementById("settingsBtn");
+  const settingsPopup = document.getElementById("settingsPopup");
+  const closeSettingsBtn = document.getElementById("closeSettings");
+  const toggleModeBtn = document.getElementById("toggleModeBtn");
+  const iphoneBtn = document.getElementById("iphoneBtn");
+  const androidBtn = document.getElementById("androidBtn");
+  const iphoneVideo = document.getElementById("iphoneVideo");
+  const androidVideo = document.getElementById("androidVideo");
 
-  <div class="form-container">
-    <h3>📝 أدخل اسمك ورقم هاتفك</h3>
-    <input type="text" id="username" placeholder="الاسم">
-    <input type="tel" id="phone" placeholder="رقم الهاتف">
-    <button onclick="submitForm()">إرسال</button>
-    <div class="user-info" id="userInfo"></div>
-  </div>
+  settingsBtn.addEventListener("click", () => {
+    settingsPopup.style.display = "block";
+  });
 
-  <script>
-    function submitForm() {
-      const name = document.getElementById('username').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const userInfo = document.getElementById('userInfo');
+  closeSettingsBtn.addEventListener("click", () => {
+    settingsPopup.style.display = "none";
+    iphoneVideo.style.display = "none";
+    androidVideo.style.display = "none";
+  });
 
-      if (name === '' || phone === '') {
-        userInfo.innerHTML = '<p style="color:red;">يرجى إدخال الاسم ورقم الهاتف.</p>';
-      } else {
-        userInfo.innerHTML = `<p>شكراً لك يا <strong>${name}</strong>! سنتواصل معك على الرقم: <strong>${phone}</strong>.</p>`;
-      }
+  toggleModeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    if (document.body.classList.contains("dark-mode")) {
+      toggleModeBtn.textContent = "☀️ إلغاء الوضع المظلم";
+    } else {
+      toggleModeBtn.textContent = "🌙 تفعيل الوضع المظلم";
+    }
+  });
+
+  iphoneBtn.addEventListener("click", () => {
+    androidVideo.style.display = "none";
+    iphoneVideo.style.display =
+      iphoneVideo.style.display === "block" ? "none" : "block";
+  });
+
+  androidBtn.addEventListener("click", () => {
+    iphoneVideo.style.display = "none";
+    androidVideo.style.display =
+      androidVideo.style.display === "block" ? "none" : "block";
+  });
+
+  // 🛡️ كلمة المرور
+  const ADMIN_PASSWORD = "1234"; // ← عدّل كلمة المرور هنا إن أردت
+
+  function askPassword() {
+    const input = prompt("🔒 الرجاء إدخال كلمة المرور:");
+    return input === ADMIN_PASSWORD;
+  }
+
+  // 🎮 جدول المباريات - البيانات الابتدائية
+  const games = [
+    { day: "الجمعه", game: "وديه", time: "7 مساءً", price: "2000 دينار" },
+   
+  ];
+
+  const tableBody = document.querySelector(".games-schedule tbody");
+
+  function updateTable() {
+    tableBody.innerHTML = "";
+    games.forEach((game, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${game.day}</td>
+        <td>${game.game}</td>
+        <td>${game.time}</td>
+        <td>${game.price}</td>
+        <td><button onclick="confirmDelete(${index})">حذف</button></td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  function confirmDelete(index) {
+    if (askPassword()) {
+      deleteGame(index);
+    } else {
+      alert("❌ كلمة المرور غير صحيحة. لم يتم حذف المباراة.");
+    }
+  }
+
+  function deleteGame(index) {
+    games.splice(index, 1);
+    updateTable();
+  }
+
+  updateTable();
+
+  const toggleAddGameBtn = document.getElementById("toggleAddGameBtn");
+  const addGameBox = document.getElementById("addGameBox");
+  const addGameForm = document.getElementById("addGameForm");
+
+  toggleAddGameBtn.addEventListener("click", () => {
+    if (addGameBox.classList.contains("show")) {
+      addGameBox.classList.remove("show");
+      toggleAddGameBtn.textContent = "➕ إضافة مباراة";
+    } else {
+      addGameBox.classList.add("show");
+      toggleAddGameBtn.textContent = "❌ إلغاء";
+    }
+  });
+
+  addGameForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (!askPassword()) {
+      alert("❌ كلمة المرور غير صحيحة. لم تتم إضافة المباراة.");
+      return;
     }
 
-    // ✅ زر الوضع المظلم
-    document.getElementById('toggleModeBtn').onclick = function () {
-      document.body.classList.toggle('dark-mode');
-      const btn = document.getElementById('toggleModeBtn');
-      btn.textContent = document.body.classList.contains('dark-mode')
-        ? '☀️ تفعيل الوضع العادي'
-        : '🌙 تفعيل الوضع المظلم';
-    };
+    const day = document.getElementById("dayInput").value.trim();
+    const game = document.getElementById("gameInput").value.trim();
+    const time = document.getElementById("timeInput").value.trim();
+    const price = document.getElementById("priceInput").value.trim();
 
-    // ✅ عرض نافذة الإعدادات
-    document.getElementById('settingsBtn').onclick = function () {
-      const popup = document.getElementById('settingsPopup');
-      popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
-    };
-
-    // ✅ إغلاق نافذة الإعدادات
-    document.getElementById('closeSettings').onclick = function () {
-      document.getElementById('settingsPopup').style.display = 'none';
-    };
-
-    // ✅ عرض فيديو الايفون
-    document.getElementById('iphoneBtn').onclick = function () {
-      document.getElementById('iphoneVideo').style.display = 'block';
-      document.getElementById('androidVideo').style.display = 'none';
-    };
-
-    // ✅ عرض فيديو الأندرويد
-    document.getElementById('androidBtn').onclick = function () {
-      document.getElementById('androidVideo').style.display = 'block';
-      document.getElementById('iphoneVideo').style.display = 'none';
-    };
-  </script>
+    if (day && game && time && price) {
+      games.push({ day, game, time, price });
+      updateTable();
+      addGameForm.reset();
+      addGameBox.classList.remove("show");
+      toggleAddGameBtn.textContent = "➕ إضافة مباراة";
+    }
+  });
+</script>
 
 </body>
 </html>
-
