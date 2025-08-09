@@ -9,8 +9,53 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- تحميل مكتبة OneSignal -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+  <!-- Firebase -->
+  <script type="module">
+    // استيراد مكتبات Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+
+    // تكوين Firebase الخاص بك
+    const firebaseConfig = {
+      apiKey: "AIzaSyAkvx2qfs1vP9tpyChZJYsttT2OLFSqolg",
+      authDomain: "alaniaq-98474.firebaseapp.com",
+      databaseURL: "https://alaniaq-98474-default-rtdb.firebaseio.com",
+      projectId: "alaniaq-98474",
+      storageBucket: "alaniaq-98474.firebasestorage.app",
+      messagingSenderId: "849600693135",
+      appId: "1:849600693135:web:eb039d0c74adcd3a9541fa"
+    };
+
+    // تهيئة Firebase
+    const app = initializeApp(firebaseConfig);
+
+    console.log("✅ Firebase تم تهيئته بنجاح", app);
+  </script>
+
+  <style>
+    /* (هنا تبقي نفس التنسيقات التي وضعتها أنت في كودك السابق بدون تغيير) */
+  </style>
+</head>
+<body>
+
+<!-- زر الإعدادات -->
+<button id="settingsBtn">⚙️ الإعدادات</button>
+
+<!-- بقية محتوى صفحتك يبقى كما هو بدون تعديل -->
+
+<script>
+  // (هنا تضع بقية أكوادك الجافاسكربت كما كانت)
+</script>
+
+<!-- OneSignal -->
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "9bafc944-5d00-4e6c-bad6-0c1ae69fdc86",
+    });
+  });
+</script>
 
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
