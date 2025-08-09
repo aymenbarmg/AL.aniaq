@@ -196,13 +196,22 @@
   
 </head>
 <body>
+<!-- زر الإعدادات -->
+<button class="settings-btn" onclick="toggleSettings()">⚙️ إعدادات</button>
+<div class="settings-menu" id="settingsMenu">
+  <button onclick="toggleDarkMode()">🌙/☀️ تبديل الوضع</button>
 
-  <!-- 🔹 زر الإعدادات -->
-  <button class="settings-btn" onclick="toggleSettings()">⚙️ إعدادات</button>
-  <div class="settings-menu" id="settingsMenu">
+  <!-- زر كيف التثبيت للآيفون -->
+  <button onclick="window.open('https://youtu.be/aaTsVYLTfcY', '_blank')">
+    📹 كيف التثبيت (اندرويد)
+  </button>
 
-    <button onclick="toggleDarkMode()">🌙/☀️ تبديل الوضع</button>
-  </div>
+  <!-- زر كيف التثبيت للأندرويد -->
+  <button onclick="window.open('https://youtu.be/ppffuiFzNM8', '_blank')">
+    📹 كيف التثبيت (ايفون)
+  </button>
+</div>
+
 
   <h1 id="teamName">⚽ فريق الأنيق</h1>
   <img src="88.jpg" alt="شعار الأنيق" class="logo">
@@ -228,17 +237,20 @@
     <img src="3.jpg" alt="صورة 3">
     <img src="4.jpg" alt="صورة 4">
   </div>
+<div class="videos" style="margin: 20px 0; text-align:center;">
+  <h2>🎥 فيديوهات قصيرة</h2>
+
 
   <div class="players">
-    <h2>📋 أسماء اللاعبين وأرقامهم</h2>
-    <table>
-      <tr><th>الاسم</th><th>الرقم</th></tr>
-      <tr><td>احمد احسان</td><td>97</td></tr>
-      <tr><td>كرار</td><td>10</td></tr>
-      <tr><td>يوسف عبد الواحد</td><td>4</td></tr>
-      <tr><td>علي داود</td><td>3</td></tr>
-      <tr><td>امير كرار</td><td>7</td></tr>
-    </table>
+  <h1>📋 أسماء اللاعبين وأرقامهم</h1>
+
+<table id="playersTable">
+  <tr><th>الاسم</th><th>الرقم</th><th>حذف</th></tr>
+</table>
+
+<button onclick="addPlayer()" style="margin-top:10px; padding:8px 12px; background:#5a2a83; color:white; border:none; border-radius:5px;">
+  ➕ إضافة لاعب
+</button>
   </div>
 
   <div class="matches" style="margin-top: 30px;">
@@ -255,8 +267,9 @@
   </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
+// --- ضع هنا إعدادات Firebase الخاصة بك (مرة واحدة فقط) ---
 const firebaseConfig = {
   apiKey: "AIzaSyAkvx2qfs1vP9tpyChZJYsttT2OLFSqolg",
   authDomain: "alaniaq-98474.firebaseapp.com",
@@ -269,11 +282,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const matchesRef = ref(db, "matches");
 
+// كلمة المرور للإدارة (غيّرها هنا)
+const ADMIN_PASSWORD = "1998";
+
+// ----- جدول المباريات (يقرأ من المسار "matches") -----
+const matchesRef = ref(db, "matches");
+const matchesTable = document.getElementById("matchesTable");
+
+// نعيد بناء جدول المباريات كل مرة تتغير البيانات (onValue)
 onValue(matchesRef, (snapshot) => {
-  const table = document.getElementById("matchesTable");
-  table.innerHTML = `
+  matchesTable.innerHTML = `
     <tr>
       <th>اليوم</th>
       <th>الملعب</th>
@@ -282,19 +301,84 @@ onValue(matchesRef, (snapshot) => {
       <th>المبلغ</th>
     </tr>
   `;
-  snapshot.forEach((childSnapshot) => {
-    const match = childSnapshot.val();
-    table.innerHTML += `
+  snapshot.forEach((child) => {
+    const m = child.val() || {};
+    matchesTable.innerHTML += `
       <tr>
-        <td>${match.day}</td>
-        <td>${match.stadium}</td>
-        <td>${match.game}</td>
-        <td>${match.time}</td>
-        <td>${match.price}</td>
+        <td>${escapeHtml(m.day || "")}</td>
+        <td>${escapeHtml(m.stadium || "")}</td>
+        <td>${escapeHtml(m.game || "")}</td>
+        <td>${escapeHtml(m.time || "")}</td>
+        <td>${escapeHtml(m.price || "")}</td>
       </tr>
     `;
   });
 });
+
+// ----- جدول اللاعبين (المسار "players") -----
+const playersRef = ref(db, "players");
+const playersTable = document.getElementById("playersTable");
+
+// نُعيد بناء جدول اللاعبين كل مرة (أي تغيّر في قاعدة البيانات)
+onValue(playersRef, (snapshot) => {
+  // أعد إنشاء رأس الجدول ثم أضف الصفوف
+  playersTable.innerHTML = `<tr><th>الاسم</th><th>الرقم</th><th>إجراء</th></tr>`;
+  snapshot.forEach((child) => {
+    const p = child.val() || {};
+    const key = child.key;
+    const row = playersTable.insertRow(-1);
+    row.insertCell(0).textContent = p.name || "";
+    row.insertCell(1).textContent = p.number || "";
+
+    const actionCell = row.insertCell(2);
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "🗑️ حذف";
+    delBtn.style.background = "#c62828";
+    delBtn.style.color = "white";
+    delBtn.style.border = "none";
+    delBtn.style.padding = "5px 8px";
+    delBtn.style.borderRadius = "4px";
+    delBtn.style.cursor = "pointer";
+
+    delBtn.addEventListener("click", () => {
+      const pwd = prompt("أدخل كلمة المرور لحذف اللاعب:");
+      if (pwd === ADMIN_PASSWORD) {
+        remove(ref(db, "players/" + key))
+          .then(() => alert("✅ تم حذف اللاعب"))
+          .catch(err => alert("خطأ عند الحذف: " + err.message));
+      } else {
+        alert("❌ كلمة المرور غير صحيحة!");
+      }
+    });
+
+    actionCell.appendChild(delBtn);
+  });
+});
+
+// ----- دالة إضافة لاعب -----
+window.addPlayer = function() {
+  const name = prompt("أدخل اسم اللاعب:");
+  if (!name || name.trim() === "") return;
+
+  const number = prompt("أدخل رقم اللاعب:");
+  if (!number || number.trim() === "") return;
+
+  push(playersRef, {
+    name: name.trim(),
+    number: number.trim()
+  }).catch(err => alert("خطأ عند الإضافة: " + err.message));
+};
+
+// ----- دالة مساعدة لحماية XSS عند إدراج نصوص في HTML -----
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+</script>
 </script>
 
 
@@ -332,14 +416,8 @@ onValue(matchesRef, (snapshot) => {
       }
     });
 
-    function changeTeamName() {
-      const newName = prompt("أدخل اسم الفريق الجديد:");
-      if (newName && newName.trim() !== "") {
-        document.getElementById("teamName").textContent = newName;
-        document.getElementById("pageTitle").textContent = newName;
-        localStorage.setItem("teamName", newName);
-      }
-    }
+  
+    
 
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
