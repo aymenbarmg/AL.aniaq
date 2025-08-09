@@ -229,17 +229,90 @@
     <img src="4.jpg" alt="صورة 4">
   </div>
 
-  <div class="players">
-    <h2>📋 أسماء اللاعبين وأرقامهم</h2>
-    <table>
-      <tr><th>الاسم</th><th>الرقم</th></tr>
-      <tr><td>احمد احسان</td><td>97</td></tr>
-      <tr><td>كرار</td><td>10</td></tr>
-      <tr><td>يوسف عبد الواحد</td><td>4</td></tr>
-      <tr><td>علي داود</td><td>3</td></tr>
-      <tr><td>امير كرار</td><td>7</td></tr>
-    </table>
-  </div>
+<div class="players">
+  <h2>📋 أسماء اللاعبين وأرقامهم</h2>
+
+  <!-- 🔹 زر إضافة لاعب -->
+  <button onclick="addPlayer()" style="margin-bottom:10px; padding:6px 12px; background:#5a2a83; color:white; border:none; border-radius:5px; cursor:pointer;">
+    ➕ إضافة لاعب
+  </button>
+
+  <table id="playersTable">
+    <tr><th>الاسم</th><th>الرقم</th><th>حذف</th></tr>
+ 
+  </table>
+</div>
+
+<script>
+  const PASSWORD = "1998"; // كلمة السر للحذف
+
+  // 📌 تحميل اللاعبين المخزنين عند فتح الصفحة
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedPlayers = JSON.parse(localStorage.getItem("playersList")) || [];
+    savedPlayers.forEach(player => {
+      insertPlayerRow(player.name, player.number, true);
+    });
+  });
+
+  function addPlayer() {
+    const name = prompt("أدخل اسم اللاعب:");
+    if (!name || name.trim() === "") return;
+
+    const number = prompt("أدخل رقم اللاعب:");
+    if (!number || number.trim() === "") return;
+
+    // إضافة اللاعب في الجدول
+    insertPlayerRow(name.trim(), number.trim(), true);
+
+    // حفظ اللاعب في LocalStorage
+    const players = JSON.parse(localStorage.getItem("playersList")) || [];
+    players.push({ name: name.trim(), number: number.trim() });
+    localStorage.setItem("playersList", JSON.stringify(players));
+  }
+
+  function insertPlayerRow(name, number, deletable) {
+    const table = document.getElementById("playersTable");
+    const newRow = table.insertRow(-1);
+    const nameCell = newRow.insertCell(0);
+    const numberCell = newRow.insertCell(1);
+    const deleteCell = newRow.insertCell(2);
+
+    nameCell.textContent = name;
+    numberCell.textContent = number;
+
+    if (deletable) {
+      const btn = document.createElement("button");
+      btn.textContent = "🗑 حذف";
+      btn.style.background = "#c62828";
+      btn.style.color = "white";
+      btn.style.border = "none";
+      btn.style.padding = "4px 8px";
+      btn.style.borderRadius = "4px";
+      btn.style.cursor = "pointer";
+      btn.onclick = () => deletePlayer(name, number, newRow);
+      deleteCell.appendChild(btn);
+    }
+  }
+
+  function deletePlayer(name, number, row) {
+    const pass = prompt("أدخل كلمة السر للحذف:");
+    if (pass !== PASSWORD) {
+      alert("❌ كلمة السر غير صحيحة");
+      return;
+    }
+
+    // حذف من الجدول
+    row.remove();
+
+    // حذف من LocalStorage
+    let players = JSON.parse(localStorage.getItem("playersList")) || [];
+    players = players.filter(p => !(p.name === name && p.number === number));
+    localStorage.setItem("playersList", JSON.stringify(players));
+
+    alert(`✅ تم حذف اللاعب ${name}`);
+  }
+</script>
+
 
   <div class="matches" style="margin-top: 30px;">
     <h2>📅 جدول المباريات</h2>
