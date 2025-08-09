@@ -86,7 +86,73 @@
     </table>
   </div>
 
-  
+  <!-- ✅ جدول المباريات من Firebase -->
+<div class="matches" style="margin-top: 40px;">
+  <h2>📅 جدول المباريات</h2>
+  <table id="matchesTable">
+    <tr>
+      <th>اليوم</th>
+      <th>الملعب</th>
+      <th>اللعبة</th>
+      <th>الوقت</th>
+      <th>المبلغ</th>
+    </tr>
+  </table>
+</div>
+
+<script type="module">
+  // استيراد مكتبات Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+  // إعدادات Firebase الخاصة بك
+  const firebaseConfig = {
+    apiKey: "AIzaSyAkvx2qfs1vP9tpyChZJYsttT2OLFSqolg",
+    authDomain: "alaniaq-98474.firebaseapp.com",
+    databaseURL: "https://alaniaq-98474-default-rtdb.firebaseio.com",
+    projectId: "alaniaq-98474",
+    storageBucket: "alaniaq-98474.firebasestorage.app",
+    messagingSenderId: "849600693135",
+    appId: "1:849600693135:web:eb039d0c74adcd3a9541fa"
+  };
+
+  // تهيئة Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+  // جلب البيانات من المسار "matches"
+  const matchesRef = ref(database, "matches");
+
+  onValue(matchesRef, (snapshot) => {
+    const table = document.getElementById("matchesTable");
+
+    // مسح الصفوف السابقة مع الاحتفاظ بالرأس
+    table.innerHTML = `
+      <tr>
+        <th>اليوم</th>
+        <th>الملعب</th>
+        <th>اللعبة</th>
+        <th>الوقت</th>
+        <th>المبلغ</th>
+      </tr>
+    `;
+
+    snapshot.forEach((childSnapshot) => {
+      const match = childSnapshot.val();
+      const row = `
+        <tr>
+          <td>${match.day}</td>
+          <td>${match.stadium}</td>
+          <td>${match.game}</td>
+          <td>${match.time}</td>
+          <td>${match.price}</td>
+        </tr>
+      `;
+      table.innerHTML += row;
+    });
+  });
+</script>
+
 
   <div class="insta-links">
     <h3>📱 تابعونا على إنستغرام:</h3>
