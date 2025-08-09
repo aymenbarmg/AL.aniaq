@@ -345,6 +345,39 @@
     const database = getDatabase(app);
     const matchesRef = ref(database, "matches");
 
+  // طلب إذن الإشعارات عند تحميل الصفحة
+  if ("Notification" in window && Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+
+  // عرض المباراة في الجدول
+  function addMatchRow(match) {
+    const table = document.getElementById("matchesTable");
+    table.innerHTML += `
+      <tr>
+        <td>${match.day}</td>
+        <td>${match.stadium}</td>
+        <td>${match.game}</td>
+        <td>${match.time}</td>
+        <td>${match.price}</td>
+      </tr>
+    `;
+  }
+
+  // عند إضافة مباراة جديدة في Firebase
+  onChildAdded(matchesRef, (snapshot) => {
+    const match = snapshot.val();
+    addMatchRow(match);
+
+    // إرسال الإشعار
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("📅 مباراة جديدة!", {
+        body: `${match.day} - ${match.game} الساعة ${match.time}`,
+        icon: "88.jpg" // صورة شعار الفريق
+      });
+    }
+  });
+
     onValue(matchesRef, (snapshot) => {
       const table = document.getElementById("matchesTable");
       table.innerHTML = `
