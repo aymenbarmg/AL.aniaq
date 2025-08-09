@@ -487,8 +487,8 @@
         <label for="dayInput">اليوم:</label>
         <input type="text" id="dayInput" placeholder="مثلاً: السبت" required />
 
-        <label for="gameInput">الملعب-للعبة:</label>
-        <input type="text" id="gameInput" placeholder="مثلاً: علي سامي-وديه ام بطوله" required />
+        <label for="gameInput">الملعب-اللعبة:</label>
+        <input type="text" id="gameInput" placeholder="مثلاً: وديه ام بطوله" required />
 
         <label for="timeInput">التوقيت:</label>
         <input type="text" id="timeInput" placeholder="مثلاً: 4 مساءً" required />
@@ -672,6 +672,44 @@
   
 </script>
 
+<button id="notifyBtn" style="padding: 10px 20px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">
+📢 أرسل إشعار بمباراة جديدة
+</button>
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "9bafc944-5d00-4e6c-bad6-0c1ae69fdc86",
+    });
+  });
+
+  document.getElementById("notifyBtn").addEventListener("click", function() {
+    fetch("https://onesignal.com/api/v1/notifications", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Basic ضع_هنا_REST_API_KEY"
+      },
+      body: JSON.stringify({
+        app_id: "9bafc944-5d00-4e6c-bad6-0c1ae69fdc86",
+        included_segments: ["All"],
+        contents: {"en": "📢 مباراة جديدة تم إضافتها!", "ar": "📢 مباراة جديدة تم إضافتها!"},
+        headings: {"en": "تنبيه جديد", "ar": "تنبيه جديد"}
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert("تم إرسال الإشعار!");
+      console.log(data);
+    })
+    .catch(error => {
+      console.error(error);
+      alert("حدث خطأ أثناء الإرسال");
+    });
+  });
+</script>
 
 </body>
 </html>
