@@ -1,259 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>فريق الأنيق</title>
-  <link rel="icon" href="88.jpg" type="image/png" />
-  <link rel="apple-touch-icon" href="88.jpg" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Firebase -->
-  <script type="module">
-    // استيراد مكتبات Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-
-    // تكوين Firebase الخاص بك
-    const firebaseConfig = {
-      apiKey: "AIzaSyAkvx2qfs1vP9tpyChZJYsttT2OLFSqolg",
-      authDomain: "alaniaq-98474.firebaseapp.com",
-      databaseURL: "https://alaniaq-98474-default-rtdb.firebaseio.com",
-      projectId: "alaniaq-98474",
-      storageBucket: "alaniaq-98474.firebasestorage.app",
-      messagingSenderId: "849600693135",
-      appId: "1:849600693135:web:eb039d0c74adcd3a9541fa"
-    };
-
-    // تهيئة Firebase
-    const app = initializeApp(firebaseConfig);
-
-    console.log("✅ Firebase تم تهيئته بنجاح", app);
-  </script>
-
+  <meta charset="UTF-8">
+  <title>فريق الأنيق </title>
   <style>
-    /* (هنا تبقي نفس التنسيقات التي وضعتها أنت في كودك السابق بدون تغيير) */
-  </style>
-</head>
-<body>
-
-<!-- زر الإعدادات -->
-<button id="settingsBtn">⚙️ الإعدادات</button>
-
-<!-- بقية محتوى صفحتك يبقى كما هو بدون تعديل -->
-
-<script>
-  // (هنا تضع بقية أكوادك الجافاسكربت كما كانت)
-</script>
-
-<!-- OneSignal -->
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "9bafc944-5d00-4e6c-bad6-0c1ae69fdc86",
-    });
-  });
-</script>
-
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "4f39c9cf-b53c-4cd9-85cf-eadc537e6490", // ضع App ID الخاص بك
-      notifyButton: {
-        enable: true, // زر الإشعارات يظهر في الموقع
-      },
-    });
-  });
-</script>
-
-  <style>
-        /* --- التنسيقات العادية --- */
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* باقي التنسيقات الأساسية لك هنا */
-
-    /* --- تعديل الموبايل --- */
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-
-      .games-schedule table,
-      table {
-        width: 100% !important;
-        font-size: 14px;
-      }
-
-      .images img {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-      }
-
-      .form-container,
-      .add-game-box {
-        width: 100% !important;
-      }
-
-      #settingsBtn {
-        font-size: 14px;
-        padding: 8px 10px;
-      }
-    }
-
-    .games-schedule {
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
-
-    .games-schedule table {
-      margin: auto;
-      border-collapse: collapse;
-      width: 80%;
-      max-width: 600px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .games-schedule th,
-    .games-schedule td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      background-color: #fff;
-    }
-
-    .games-schedule th {
-      background-color: #5a2a83;
-      color: white;
-    }
-
-    .games-schedule button {
-      background-color: #5a2a83;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .games-schedule button:hover {
-      background-color: #7b3aae;
-    }
-
-    /* الوضع المظلم */
-    .dark-mode .games-schedule th {
-      background-color: #833ab4;
-    }
-
-    .dark-mode .games-schedule td {
-      background-color: #1c1c1c;
-      color: #f0f0f0;
-    }
-
-    .dark-mode .games-schedule button {
-      background-color: #833ab4;
-    }
-
-    .dark-mode .games-schedule button:hover {
-      background-color: #a569e0;
-    }
-
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
       color: #222;
       text-align: center;
       padding: 20px;
-      transition: background-color 0.3s, color 0.3s;
     }
-
-    h1 {
-      color: #5a2a83;
-    }
-
-    .logo {
-      width: 120px;
-      border-radius: 10px;
-    }
-
-    .images {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 20px 0;
-      flex-wrap: wrap;
-    }
-
-    .images img {
-      width: 200px;
-      height: auto;
-      border-radius: 8px;
-    }
-
-    .players {
-      margin-top: 30px;
-    }
-
-    table {
-      margin: auto;
-      border-collapse: collapse;
-      width: 60%;
-    }
-
-    th,
-    td {
-      border: 1px solid #ccc;
-      padding: 8px;
-    }
-
-    th {
-      background-color: #ddd;
-    }
-
-    .contact {
-      margin-top: 40px;
-      font-size: 18px;
-      color: #333;
-      text-align: center;
-    }
-
-    .contact a {
-      color: #5a2a83;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .contact a:hover {
-      text-decoration: underline;
-    }
-
-    .insta-links {
-      margin-top: 15px;
-    }
-
-    .insta-links a {
-      display: block;
-      margin: 8px 0;
-    }
+    h1 { color: #5a2a83; }
+    .logo { width: 120px; border-radius: 10px; }
+    .images { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+    .images img { width: 200px; height: auto; border-radius: 8px; }
+    .players { margin-top: 30px; text-align: center; }
+    table { margin: auto; border-collapse: collapse; width: 60%; max-width: 900px; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background-color: #ddd; }
+    .contact { margin-top: 30px; font-size: 18px; }
+    .insta-links a { display: block; margin: 5px; color: #833ab4; text-decoration: none; }
 
     .form-container {
       margin: 40px auto;
       padding: 20px;
-      width: 300px;
+      width: 320px;
       background-color: #fff;
       border: 2px solid #5a2a83;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     .form-container input {
@@ -272,462 +48,101 @@
       cursor: pointer;
     }
 
-    .user-info {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-    }
+    .user-info { margin-top: 20px; font-size: 16px; color: #333; min-height: 24px; }
 
-    .dark-mode {
-      background-color: #121212;
-      color: #f0f0f0;
+    /* responsiveness */
+    @media (max-width: 600px) {
+      table { width: 100%; }
+      .images img { width: 140px; }
+      .form-container { width: 90%; }
     }
-
-    .dark-mode .form-container {
-      background-color: #1e1e1e;
-      border-color: #bbb;
-    }
-
-    .dark-mode table,
-    .dark-mode th,
-    .dark-mode td {
-      border-color: #555;
-      background-color: #1c1c1c;
-      color: #f0f0f0;
-    }
-
-    .dark-mode th {
-      background-color: #333;
-    }
-
-    .dark-mode a {
-      color: #9b59b6;
-    }
-
-    /* زر الإعدادات */
-    #settingsBtn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 15px;
-      background-color: #5a2a83;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      z-index: 1001;
-      font-size: 16px;
-    }
-
-    /* نافذة الإعدادات */
-    #settingsPopup {
-      display: none;
-      position: fixed;
-      top: 60px;
-      right: 20px;
-      width: 260px;
-      background-color: #fff;
-      border: 2px solid #5a2a83;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      padding: 15px;
-      z-index: 1000;
-      text-align: center;
-    }
-
-    .dark-mode #settingsPopup {
-      background-color: #1e1e1e;
-      border-color: #bbb;
-      color: #f0f0f0;
-    }
-
-    #settingsPopup button {
-      margin-top: 10px;
-      padding: 8px 15px;
-      font-size: 14px;
-      border: none;
-      border-radius: 6px;
-      background-color: #5a2a83;
-      color: white;
-      cursor: pointer;
-    }
-
-    #closeSettings {
-      background-color: #aaa;
-    }
-
-    .video-section {
-      margin-top: 10px;
-      display: none;
-    }
-
-    .video-section iframe {
-      width: 100%;
-      height: 150px;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-
-    /* صندوق إضافة المباراة */
-    .add-game-box {
-      width: 80%;
-      max-width: 600px;
-      margin: 30px auto;
-      padding: 20px;
-      border: 2px solid #5a2a83;
-      border-radius: 10px;
-      background-color: #fff;
-      text-align: right;
-      display: none; /* مخفي افتراضيًا */
-    }
-
-    .add-game-box.show {
-      display: block; /* يظهر عند الإضافة */
-    }
-
-    .add-game-box h3 {
-      color: #5a2a83;
-      margin-bottom: 15px;
-    }
-
-    .add-game-box input {
-      width: 100%;
-      padding: 7px;
-      margin-bottom: 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-
-    .add-game-box button {
-      background-color: #5a2a83;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 16px;
-    }
-
-    .add-game-box button:hover {
-      background-color: #7b3aae;
-    }
-
-    /* زر فتح صندوق إضافة المباراة */
-    #toggleAddGameBtn {
-      background-color: #5a2a83;
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 20px auto;
-      display: block;
-      max-width: 200px;
-      transition: background-color 0.3s;
-    }
-
-    #toggleAddGameBtn:hover {
-      background-color: #7b3aae;
-    }
-    
   </style>
 </head>
-
-  <!-- زر الإعدادات -->
-  <button id="settingsBtn">⚙️ الإعدادات</button>
-
-  <!-- نافذة الإعدادات -->
-  <div id="settingsPopup">
-    <h3>الإعدادات</h3>
-    <button id="toggleModeBtn">🌙 تفعيل الوضع المظلم</button>
-
-    <p style="margin-top: 15px; font-weight: bold;">📥 كيف تثبيت التطبيق؟</p>
-
-    <button id="iphoneBtn">📱 للايفون</button>
-    <button id="androidBtn">🤖 للأندرويد</button>
-
-    <button id="closeSettings">إغلاق</button>
-
-    <div class="video-section" id="iphoneVideo" style="display: none;">
-      <h4>فيديو الايفون</h4>
-      <iframe
-        width="100%"
-        height="315"
-        src="https://www.youtube.com/embed/ppffuiFzNM8"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
-
-    <!-- فيديو الأندرويد -->
-    <div class="video-section" id="androidVideo" style="display: none; margin-top: 10px;">
-      <h4>فيديو الأندرويد</h4>
-      <iframe
-        width="100%"
-        height="215"
-        src="https://www.youtube.com/embed/aaTsVYLTfcY"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
+<body>
 
   <h1>⚽ فريق الأنيق </h1>
-  <img src="88.jpg" alt="شعار الأنيق" class="logo" />
-
+  <img src="88.jpg" alt="شعار الأنيق" class="logo">
+  
   <p>
-    يقود فريق الأنيق المدرب <strong>حيدر السراي</strong>، وقد تمكن من الوصول إلى <strong>أربع
-      نهائيات</strong> في بطولات كروية محلية، ولكن الحظ لم يحالفه في أي منها حتى الآن. الفريق
-    يتميز بالروح القتالية، والمهارة الجماعية، ويطمح لتحقيق أول بطولة قريبًا.
-  </p>
-
-  <p>
-    رغم قلة الموارد، فإن الأنيق حصد احترام جماهير اللعبة بفضل الأداء الجميل الراقي والانضباط
-    العالي داخل الملعب.
-  </p>
-
-  <p>
-    🎖️ <strong>يكافئ فريق الأنيق لاعب الشهر</strong> لأول مرة، وكانت الجائزة من نصيب النجم
-    <strong>أحمد إحسان</strong> الذي قدم كل ما لديه داخل المستطيل الأخضر، وقاتل بروح عالية في
-    كل مباراة، ليحصل على هذا التكريم المستحق.
+    يقود فريق الأنيق المدرب <strong>حيدر السراي</strong>، وقد تمكن من الوصول إلى <strong>أربع نهائيات</strong>...
   </p>
 
   <div class="images">
-    <img src="1.jpg" alt="صورة 1" />
-    <img src="2.jpg" alt="صورة 2" />
-    <img src="3.jpg" alt="صورة 3" />
-    <img src="4.jpg" alt="صورة 4" />
+    <img src="1.jpg" alt="صورة 1">
+    <img src="2.jpg" alt="صورة 2">
+    <img src="3.jpg" alt="صورة 3">
+    <img src="4.jpg" alt="صورة 4">
   </div>
 
-  <!-- جدول المباريات -->
-  <div class="games-schedule">
-    <h2>📅 جدول المباريات</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th>اليوم</th>
-          <th>الملعب-اللعبة</th>
-          <th>التوقيت</th>
-          <th>المبلغ</th>
-          <th>إجراء</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- سيتم تعبئة الجدول ديناميكياً -->
-      </tbody>
-    </table>
-
-    <!-- زر إظهار/إخفاء صندوق إضافة المباراة -->
-    <button id="toggleAddGameBtn">➕ إضافة مباراة</button>
-
-    <!-- صندوق إضافة المباراة -->
-    <div class="add-game-box" id="addGameBox">
-      <h3>➕ إضافة مباراة</h3>
-      <form id="addGameForm" autocomplete="off" style="direction: rtl;">
-        <label for="dayInput">اليوم:</label>
-        <input type="text" id="dayInput" placeholder="مثلاً: السبت" required />
-
-        <label for="gameInput">الملعب-اللعبة:</label>
-        <input type="text" id="gameInput" placeholder="مثلاً: وديه ام بطوله" required />
-
-        <label for="timeInput">التوقيت:</label>
-        <input type="text" id="timeInput" placeholder="مثلاً: 4 مساءً" required />
-
-        <label for="priceInput">المبلغ:</label>
-        <input type="text" id="priceInput" placeholder="مثلاً: 2000 دينار " required />
-
-        <button type="submit">إضافة مباراة</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- أسماء اللاعبين -->
   <div class="players">
     <h2>📋 أسماء اللاعبين وأرقامهم</h2>
     <table>
-      <tr>
-        <th>الاسم</th>
-        <th>الرقم</th>
-      </tr>
-      <tr>
-        <td>احمد احسان</td>
-        <td>97</td>
-      </tr>
-      <tr>
-        <td>كرار</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td>يوسف عبد الواحد</td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td>علي داود</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>حسن علي نجم</td>
-        <td>99</td>
-      </tr>
-      <tr>
-        <td>عباس</td>
-        <td>1</td>
-      </tr>
+      <tr><th>الاسم</th><th>الرقم</th></tr>
+      <tr><td>احمد احسان</td><td>97</td></tr>
+      <tr><td>كرار</td><td>10</td></tr>
+      <tr><td>يوسف عبد الواحد</td><td>4</td></tr>
+      <tr><td>علي داود</td><td>3</td></tr>
+      <tr><td>امير كرار</td><td>7</td></tr>
     </table>
   </div>
 
-  <!-- قسم التواصل -->
-  <div class="contact">
-    <h2>📞 تواصل معنا</h2>
-    <p>رقم الهاتف: <a href="tel:+966123456789">+964 771 551 2965</a></p>
-    <div class="insta-links">
-      <h3>تابعنا على الإنستغرام</h3>
-      <a href="https://www.instagram.com/al.aniaq_sport_?igsh=MXFnczl3eG5yM3B0OA==" target="_blank">فريق الأنيق الرسمي</a>
-      <a href="https://www.instagram.com/hhh.ri.18?igsh=dWI0anNlc3Z0dGFx" target="_blank">حيدر السراي - المدرب</a>
-      
-    </div>
+  
+
+  <div class="insta-links">
+    <h3>📱 تابعونا على إنستغرام:</h3>
+    <a href="https://instagram.com/al.aniaq_sport_" target="_blank">🔗 @al.aniaq_sport_</a>
+    <a href="https://instagram.com/hhh.ri.18" target="_blank">🔗 @hhh.ri.18</a>
   </div>
-  
-<script>
-  const settingsBtn = document.getElementById("settingsBtn");
-  const settingsPopup = document.getElementById("settingsPopup");
-  const closeSettingsBtn = document.getElementById("closeSettings");
-  const toggleModeBtn = document.getElementById("toggleModeBtn");
-  const iphoneBtn = document.getElementById("iphoneBtn");
-  const androidBtn = document.getElementById("androidBtn");
-  const iphoneVideo = document.getElementById("iphoneVideo");
-  const androidVideo = document.getElementById("androidVideo");
 
-  settingsBtn.addEventListener("click", () => {
-    settingsPopup.style.display = "block";
-  });
+  <div class="contact">
+    <h3>📞 للتواصل :</h3>
+    <p>رقم التواصل: <strong>+964 771 551 2965</strong></p>
+  </div>
 
-  closeSettingsBtn.addEventListener("click", () => {
-    settingsPopup.style.display = "none";
-    iphoneVideo.style.display = "none";
-    androidVideo.style.display = "none";
-  });
+  <!-- ✅ نموذج الإدخال في أسفل الصفحة -->
+  <div class="form-container">
+    <h3>📝 أدخل اسمك ورقم هاتفك</h3>
+    <input type="text" id="username" placeholder="الاسم" aria-label="الاسم">
+    <input type="tel" id="phone" placeholder="رقم الهاتف" aria-label="رقم الهاتف">
+    <button type="button" onclick="submitForm()">إرسال</button>
 
-  toggleModeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    toggleModeBtn.textContent = document.body.classList.contains("dark-mode")
-      ? "☀️ إلغاء الوضع المظلم"
-      : "🌙 تفعيل الوضع المظلم";
-  });
+    <div class="user-info" id="userInfo"></div>
+  </div>
 
-  iphoneBtn.addEventListener("click", () => {
-    androidVideo.style.display = "none";
-    iphoneVideo.style.display = iphoneVideo.style.display === "block" ? "none" : "block";
-  });
+  <script>
+    function submitForm() {
+      const name = document.getElementById('username').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const userInfo = document.getElementById('userInfo');
 
-  androidBtn.addEventListener("click", () => {
-    iphoneVideo.style.display = "none";
-    androidVideo.style.display = androidVideo.style.display === "block" ? "none" : "block";
-  });
+      // تحقق من الحقول الفارغة
+      if (name === '' || phone === '') {
+        userInfo.innerHTML = '<span style="color: #c62828;">يوجد خطأ: الرجاء إدخال الاسم ورقم الهاتف.</span>';
+        return;
+      }
 
-  // 🛡️ كلمة المرور
-  const ADMIN_PASSWORD = "1998";
+      // تحقق مبسط لصيغة رقم الهاتف (اختياري، يقبل + ومسافات وواصل)
+      const phoneRegex = /^\+?\d[\d\s\-]{6,19}$/;
+      if (!phoneRegex.test(phone)) {
+        userInfo.innerHTML = '<span style="color: #c62828;">رقم الهاتف غير صالح. تأكد من إدخال الأرقام بشكل صحيح.</span>';
+        return;
+      }
 
-  function askPassword() {
-    const input = prompt("🔒 الرجاء إدخال كلمة المرور:");
-    return input === ADMIN_PASSWORD;
-  }
-
-  // 🎮 استرجاع المباريات من التخزين المحلي
-  let games = JSON.parse(localStorage.getItem("games")) || [];
-
-  const tableBody = document.querySelector(".games-schedule tbody");
-
-  function saveGamesToStorage() {
-    localStorage.setItem("games", JSON.stringify(games));
-  }
-
-  function updateTable() {
-    tableBody.innerHTML = "";
-    games.forEach((game, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${game.day}</td>
-        <td>${game.game}</td>
-        <td>${game.time}</td>
-        <td>${game.price}</td>
-        <td><button onclick="confirmDelete(${index})">حذف</button></td>
-      `;
-      tableBody.appendChild(row);
-    });
-  }
-
-  function confirmDelete(index) {
-    if (askPassword()) {
-      deleteGame(index);
-    } else {
-      alert("❌ كلمة المرور غير صحيحة. لم يتم حذف المباراة.");
-    }
-  }
-
-  function deleteGame(index) {
-    games.splice(index, 1);
-    saveGamesToStorage();
-    updateTable();
-  }
-
-  updateTable(); // عرض البيانات عند تحميل الصفحة
-
-  const toggleAddGameBtn = document.getElementById("toggleAddGameBtn");
-  const addGameBox = document.getElementById("addGameBox");
-  const addGameForm = document.getElementById("addGameForm");
-
-  toggleAddGameBtn.addEventListener("click", () => {
-    if (addGameBox.classList.contains("show")) {
-      addGameBox.classList.remove("show");
-      toggleAddGameBtn.textContent = "➕ إضافة مباراة";
-    } else {
-      addGameBox.classList.add("show");
-      toggleAddGameBtn.textContent = "❌ إلغاء";
-    }
-  });
-
-  addGameForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    if (!askPassword()) {
-      alert("❌ كلمة المرور غير صحيحة. لم تتم إضافة المباراة.");
-      return;
+      // رسالة نجاح ومسح الحقول
+      userInfo.innerHTML = `<span style="color: #2e7d32;">شكراً ${escapeHtml(name)} — تم استلام رقمك ${escapeHtml(phone)} وسنتواصل معك قريبًا.</span>`;
+      document.getElementById('username').value = '';
+      document.getElementById('phone').value = '';
     }
 
-    const day = document.getElementById("dayInput").value.trim();
-    const game = document.getElementById("gameInput").value.trim();
-    const time = document.getElementById("timeInput").value.trim();
-    const price = document.getElementById("priceInput").value.trim();
-
-    if (day && game && time && price) {
-      games.push({ day, game, time, price });
-      saveGamesToStorage();
-      updateTable();
-      addGameForm.reset();
-      addGameBox.classList.remove("show");
-      toggleAddGameBtn.textContent = "➕ إضافة مباراة";
+    // دالة بسيطة لتفادي حقن HTML عند عرض اسم/رقم المستخدم
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
     }
-  });
-  
-</script>
-
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "9bafc944-5d00-4e6c-bad6-0c1ae69fdc86",
-    });
-  });
-</script>
+  </script>
 
 </body>
 </html>
-
-
