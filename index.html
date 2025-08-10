@@ -282,6 +282,9 @@
     cursor: pointer;
   }
 </style>
+<div id="noteBox" style="background:#fff3cd; border:1px solid #ffeeba; padding:10px; margin:10px auto; max-width:600px; border-radius:5px; font-size:16px; color:#856404;">
+  📌 <span id="noteTextDisplay">لا توجد ملاحظات حالياً</span>
+</div>
 
   <div class="matches" style="margin-top: 30px;">
     <h2>📅 جدول المباريات</h2>
@@ -347,6 +350,12 @@ onValue(matchesRef, (snapshot) => {
 
 // ----- جدول اللاعبين (المسار "players") -----
 const playersRef = ref(db, "players");
+const noteRef = ref(db, "note");
+onValue(noteRef, (snapshot) => {
+  const note = snapshot.val();
+  document.getElementById("noteTextDisplay").textContent = note || "لا توجد ملاحظات حالياً";
+});
+
 const playersTable = document.getElementById("playersTable");
 
 // نُعيد بناء جدول اللاعبين كل مرة (أي تغيّر في قاعدة البيانات)
