@@ -299,43 +299,10 @@
       </tr>
     </table>
   </div>
-<button id="sendNotificationBtn" style="background:#007bff; margin-top:10px;">إرسال إشعار</button>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-document.getElementById("sendNotificationBtn").addEventListener("click", () => {
-  const enteredPassword = prompt("🔒 أدخل كلمة المرور لإرسال الإشعار:");
-  if (enteredPassword !== ADMIN_PASSWORD) {
-    alert("❌ كلمة المرور غير صحيحة");
-    return;
-  }
-
-  // إذا كان الإذن بالإشعارات ممنوحًا
-  if (Notification.permission === "granted") {
-    new Notification("تنبيه من لوحة التحكم", {
-      body: "تم الضغط على زر الإشعار!",
-      icon: "88.jpg"
-    });
-  } 
-  // إذا لم يتم منح الإذن بعد
-  else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(permission => {
-      if (permission === "granted") {
-        new Notification("تنبيه من لوحة التحكم", {
-          body: "تم الضغط على زر الإشعار!",
-          icon: "88.jpg"
-        });
-      } else {
-        alert("⚠️ تم رفض الإشعارات من المتصفح");
-      }
-    });
-  } 
-  // إذا تم رفض الإشعارات مسبقًا
-  else {
-    alert("⚠️ تم رفض الإشعارات من المتصفح مسبقًا");
-  }
-});
 
 // --- ضع هنا إعدادات Firebase الخاصة بك (مرة واحدة فقط) ---
 const firebaseConfig = {
