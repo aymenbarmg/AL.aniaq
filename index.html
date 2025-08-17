@@ -251,6 +251,7 @@
 <button onclick="addPlayer()" style="margin-top:10px; padding:8px 12px; background:#5a2a83; color:white; border:none; border-radius:5px;">
   ➕ إضافة لاعب
 </button>
+
   </div>
 
 <style>
@@ -298,6 +299,7 @@
       </tr>
     </table>
   </div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -322,8 +324,6 @@ const ADMIN_PASSWORD = "1998";
 // ----- جدول المباريات (يقرأ من المسار "matches") -----
 const matchesRef = ref(db, "matches");
 const matchesTable = document.getElementById("matchesTable");
-
-// نعيد بناء جدول المباريات كل مرة تتغير البيانات (onValue)
 onValue(matchesRef, (snapshot) => {
   matchesTable.innerHTML = `
     <tr>
@@ -332,21 +332,94 @@ onValue(matchesRef, (snapshot) => {
       <th>اللعبة</th>
       <th>الوقت</th>
       <th>المبلغ</th>
+      <th>التعليقات</th>
     </tr>
   `;
+
   snapshot.forEach((child) => {
     const m = child.val() || {};
-    matchesTable.innerHTML += `
-      <tr>
-        <td>${escapeHtml(m.day || "")}</td>
-        <td>${escapeHtml(m.stadium || "")}</td>
-        <td>${escapeHtml(m.game || "")}</td>
-        <td>${escapeHtml(m.time || "")}</td>
-        <td>${escapeHtml(m.price || "")}</td>
-      </tr>
-    `;
+    const matchKey = child.key;
+    const row = matchesTable.insertRow(-1);
+
+    row.insertCell(0).textContent = m.day || "";
+    row.insertCell(1).textContent = m.stadium || "";
+    row.insertCell(2).textContent = m.game || "";
+    row.insertCell(3).textContent = m.time || "";
+    row.insertCell(4).textContent = m.price || "";
+
+    const commentCell = row.insertCell(5);
+    commentCell.style.verticalAlign = "top";
+
+    // زر إضافة تعليق
+    const addCommentBtn = document.createElement("button");
+    addCommentBtn.textContent = "➕ إضافة تعليق";
+    addCommentBtn.style.marginBottom = "4px";
+    addCommentBtn.style.display = "block";
+    addCommentBtn.style.padding = "4px 8px";
+    addCommentBtn.style.background = "#2e7d32";
+    addCommentBtn.style.color = "white";
+    addCommentBtn.style.border = "none";
+    addCommentBtn.style.borderRadius = "4px";
+    addCommentBtn.style.cursor = "pointer";
+    commentCell.appendChild(addCommentBtn);
+
+    addCommentBtn.addEventListener("click", () => {
+      const name = prompt("أدخل اسمك:");
+      if (!name) return;
+      const comment = prompt("أدخل تعليقك:");
+      if (!comment) return;
+
+      push(ref(db, `matches/${matchKey}/comments`), {
+        name: name.trim(),
+        comment: comment.trim()
+      }).then(() => alert("✅ تم إضافة تعليقك"));
+    });
+
+    // زر عرض التعليقات
+    const showCommentBtn = document.createElement("button");
+    showCommentBtn.textContent = "💬 عرض التعليقات";
+    showCommentBtn.style.display = "block";
+    showCommentBtn.style.padding = "4px 8px";
+    showCommentBtn.style.background = "#5a2a83";
+    showCommentBtn.style.color = "white";
+    showCommentBtn.style.border = "none";
+    showCommentBtn.style.borderRadius = "4px";
+    showCommentBtn.style.cursor = "pointer";
+    commentCell.appendChild(showCommentBtn);
+
+    // div لإظهار التعليقات بعد كلمة المرور
+    const commentsList = document.createElement("div");
+    commentsList.style.display = "none";
+    commentsList.style.marginTop = "5px";
+    commentCell.appendChild(commentsList);
+
+    showCommentBtn.addEventListener("click", () => {
+      const pwd = prompt("أدخل كلمة المرور لعرض التعليقات:");
+      if (pwd !== ADMIN_PASSWORD) {
+        alert("❌ كلمة المرور غير صحيحة!");
+        return;
+      }
+
+      commentsList.style.display = "block";
+      commentsList.innerHTML = "<b>التعليقات:</b><br>";
+
+      const commentRef = ref(db, `matches/${matchKey}/comments`);
+      onValue(commentRef, (snapshot) => {
+        commentsList.innerHTML = "<b>التعليقات:</b><br>";
+        snapshot.forEach((c) => {
+          const data = c.val();
+          const div = document.createElement("div");
+          div.style.borderTop = "1px solid #ccc";
+          div.style.padding = "2px 0";
+          div.textContent = `${data.name}: ${data.comment}`;
+          commentsList.appendChild(div);
+        });
+      });
+    });
   });
 });
+
+
 
 // ----- جدول اللاعبين (المسار "players") -----
 const playersRef = ref(db, "players");
