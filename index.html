@@ -196,6 +196,59 @@
   
 </head>
 <body>
+  <!-- 🔔 زر تفعيل الإشعارات -->
+<button id="notifyBtn" style="
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  background: #0088cc;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 1000;">
+  🔔 تفعيل الإشعارات
+</button>
+
+<!-- نافذة منبثقة -->
+<div id="notifyPopup" style="
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 2000;
+  max-width: 300px;
+">
+  <h3>📢 لتفعيل الإشعارات</h3>
+  <p>اشترك في قناة التليكرام الخاصة بالفريق:</p>
+  <a href="https://t.me/aniaqsport" target="_blank" style="
+    display: inline-block;
+    background: #0088cc;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 10px;
+  ">🔗 اشترك بالقناة</a>
+  <br><br>
+  <button onclick="closeNotify()" style="
+    background: #c62828;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  ">إغلاق</button>
+</div>
+
 <!-- زر الإعدادات -->
 <button class="settings-btn" onclick="toggleSettings()">⚙️ إعدادات</button>
 <div class="settings-menu" id="settingsMenu">
@@ -574,7 +627,27 @@ function escapeHtml(str) {
         menu.style.display = 'none';
       }
     });
+    
   </script>
+<script>
+  const notifyBtn = document.getElementById("notifyBtn");
+  const notifyPopup = document.getElementById("notifyPopup");
+
+  notifyBtn.addEventListener("click", () => {
+    notifyPopup.style.display = "block";
+  });
+
+  function closeNotify() {
+    notifyPopup.style.display = "none";
+  }
+
+  // إغلاق النافذة عند الضغط خارجها
+  window.addEventListener("click", (e) => {
+    if (e.target === notifyPopup) {
+      notifyPopup.style.display = "none";
+    }
+  });
+</script>
 
 </body>
 </html>
